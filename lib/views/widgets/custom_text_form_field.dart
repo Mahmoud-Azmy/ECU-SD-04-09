@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
     this.sIcon,
     this.isEmail = false,
     this.isPass = false,
+    this.controller,
   });
 
   final String hText;
@@ -15,10 +16,12 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? sIcon;
   final bool isEmail;
   final bool isPass;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       obscureText: isPass,
       validator: (value) {
         if (value == null || value.isEmpty) {

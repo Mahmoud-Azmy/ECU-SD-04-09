@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/controllers/auth_provider.dart';
+import 'package:shopping_app/models/auth_model.dart';
 import 'package:shopping_app/views/screens/home_screen.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
@@ -13,7 +16,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
-  bool isVisible = false;
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   SizedBox(height: 16),
                   CustomTextFormField(
+                    controller: emailController,
                     hText: 'Email',
                     pIcon: Icon(Icons.email),
                     isEmail: true,
                   ),
                   SizedBox(height: 16),
                   CustomTextFormField(
+                    controller: passController,
                     hText: 'Password',
                     pIcon: Icon(Icons.lock),
                     isPass: isVisible,
@@ -62,19 +69,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 24),
                   CustomButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
+                        final result = await context.read<AuthProvider>().login(
+                          AuthRequest(
+                            email: emailController.text,
+                            password: passController.text,
                           ),
                         );
+                        if (result) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return HomeScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Something Went Wrong'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
                       }
                     },
-                    child: Text('Login'),
+                    child: context.watch<AuthProvider>().isLoading
+                        ? CircularProgressIndicator()
+                        : Text('Login'),
                   ),
                   SizedBox(height: 8),
                   Row(
@@ -104,6 +128,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-    ;
   }
 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/controllers/auth_provider.dart';
+import 'package:shopping_app/models/auth_model.dart';
 import 'package:shopping_app/views/screens/login_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
 import 'package:shopping_app/views/widgets/custom_text_form_field.dart';
@@ -12,7 +15,11 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final formKey = GlobalKey<FormState>();
-  bool isVisible = false;
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  bool isVisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,17 +45,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 16),
-                  CustomTextFormField(hText: 'Name', pIcon: Icon(Icons.person)),
+                  CustomTextFormField(
+                    hText: 'Name',
+                    pIcon: Icon(Icons.person),
+                    controller: nameController,
+                  ),
                   SizedBox(height: 16),
-                  CustomTextFormField(hText: 'Phone', pIcon: Icon(Icons.phone)),
+                  CustomTextFormField(
+                    hText: 'Phone',
+                    pIcon: Icon(Icons.phone),
+                    controller: phoneController,
+                  ),
                   SizedBox(height: 16),
                   CustomTextFormField(
                     hText: 'Email',
                     pIcon: Icon(Icons.email),
                     isEmail: true,
+                    controller: emailController,
                   ),
                   SizedBox(height: 16),
                   CustomTextFormField(
+                    controller: passController,
                     hText: 'Password',
                     pIcon: Icon(Icons.lock),
                     isPass: isVisible,
@@ -64,19 +81,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   SizedBox(height: 24),
                   CustomButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return LoginScreen();
-                            },
-                          ),
-                        );
+                        final resilt = await context
+                            .read<AuthProvider>()
+                            .register(
+                              AuthRequest(
+                                email: emailController.text,
+                                password: passController.text,
+                                phone: phoneController.text,
+                                name: nameController.text,
+                              ),
+                            );
+                        if (resilt) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return LoginScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Something Went Wrong'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
                       }
                     },
-                    child: Text('Sign Up'),
+                    child: context.watch<AuthProvider>().isLoading
+                        ? CircularProgressIndicator()
+                        : Text('Sign Up'),
                   ),
                   SizedBox(height: 8),
                   Row(
