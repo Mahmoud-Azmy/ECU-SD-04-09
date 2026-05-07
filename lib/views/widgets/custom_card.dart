@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/models/product_model.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
-
+  const CustomCard({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Image.network(
-            'data:image/webp;base64,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',
-            height: 180,
-          ),
-          Text('Title'),
-          Text('Price'),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Image.network(product.imageUrl, height: 180),
+            Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(
+              product.price.toString(),
+              style: TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

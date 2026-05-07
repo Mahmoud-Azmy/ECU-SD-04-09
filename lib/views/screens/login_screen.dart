@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/controllers/auth_provider.dart';
+import 'package:shopping_app/controllers/get_products_provider.dart';
 import 'package:shopping_app/models/auth_model.dart';
 import 'package:shopping_app/views/screens/home_screen.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
@@ -78,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         );
                         if (result) {
+                          context.read<GetProductsProvider>().getProducts();
                           Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

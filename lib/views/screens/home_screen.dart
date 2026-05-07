@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/controllers/get_products_provider.dart';
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -12,28 +14,40 @@ class HomeScreen extends StatelessWidget {
         title: Text('Products', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: GridView.builder(
-        itemCount: 9,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: .9,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-        ),
-        itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return DetailsScreen();
+      body: Consumer(
+        builder: (context, GetProductsProvider controller, _) {
+          if (controller.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (controller.errMessage != null) {
+            return Center(child: Text(controller.errMessage!));
+          } else {
+            return GridView.builder(
+              itemCount: controller.productsList.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: .9,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+              ),
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DetailsScreen(
+                            product: controller.productsList[index],
+                          );
+                        },
+                      ),
+                    );
                   },
-                ),
-              );
-            },
-            child: CustomCard(),
-          );
+                  child: CustomCard(product: controller.productsList[index]),
+                );
+              },
+            );
+          }
         },
       ),
     );
