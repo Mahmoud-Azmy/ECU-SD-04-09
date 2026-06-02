@@ -1,8 +1,10 @@
 class Consts {
-  static const baseUrl = 'https://elsewedyteam.runasp.net/api/';
-  static const loginEndPoint = 'Login/CheckUser';
-  static const registerEndPoint = 'Register/AddUser';
-  static const getProductsEndPoint = 'Product/GetProducts';
+  static const loginEndPoint =
+      'https://librarysystemflutterteam.runasp.net/api/Registration/SignIn';
+  static const registerEndPoint =
+      'https://librarysystemflutterteam.runasp.net/api/Registration/SignUp';
+  static const getProductsEndPoint =
+      'https://iats.runasp.net/api/Product/GetProducts';
 }
 
 

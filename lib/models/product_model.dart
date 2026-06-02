@@ -1,6 +1,6 @@
 class ProductModel {
   final int id;
-  final double price;
+  final int price;
   final String name;
   final String imageUrl;
   final String desc;

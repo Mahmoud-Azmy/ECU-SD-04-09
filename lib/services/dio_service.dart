@@ -4,22 +4,13 @@ import 'package:shopping_app/models/auth_model.dart';
 import 'package:shopping_app/models/product_model.dart';
 
 class DioService {
-  late Dio _dio;
-  DioService() {
-    _dio = Dio(
-      BaseOptions(
-        baseUrl: Consts.baseUrl,
-        connectTimeout: Duration(seconds: 30),
-        receiveTimeout: Duration(seconds: 30),
-      ),
-    );
-  }
+  final _dio = Dio();
 
   Future<AuthResponse?> loginUser(AuthRequest user) async {
     try {
       final result = await _dio.post(
         Consts.loginEndPoint,
-        data: {"Email": user.email, "Password": user.password},
+        data: {"email": user.email, "password": user.password},
       );
       if (result.statusCode == 200) {
         return AuthResponse.fromJson(result.data);
@@ -36,10 +27,10 @@ class DioService {
       final result = await _dio.post(
         Consts.registerEndPoint,
         data: {
-          "Email": user.email,
-          "Password": user.password,
-          "Phone": user.phone,
-          "Name": user.name,
+          "email": user.email,
+          "password": user.password,
+          "phoneNumber": user.phone,
+          "name": user.name,
         },
       );
       if (result.statusCode == 200) {

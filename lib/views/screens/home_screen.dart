@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               itemCount: controller.productsList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: .9,
+                childAspectRatio: .7,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
               ),
