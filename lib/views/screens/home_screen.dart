@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('Books', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Consumer(
@@ -21,14 +21,9 @@ class HomeScreen extends StatelessWidget {
           } else if (controller.errMessage != null) {
             return Center(child: Text(controller.errMessage!));
           } else {
-            return GridView.builder(
+            return ListView.builder(
               itemCount: controller.productsList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: .7,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-              ),
+
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {

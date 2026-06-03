@@ -6,7 +6,7 @@ class GetProductsProvider extends ChangeNotifier {
   final DioService _dioService = DioService();
   String? errMessage;
   bool isLoading = false;
-  List<ProductModel> productsList = [];
+  List<BookModel> productsList = [];
 
   Future<void> getProducts() async {
     isLoading = true;

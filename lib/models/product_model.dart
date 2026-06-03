@@ -1,37 +1,42 @@
-class ProductModel {
-  final int id;
-  final int price;
-  final String name;
+class BookModel {
+  final num id;
+  final num price;
+  final num rate;
+  final String title;
   final String imageUrl;
-  final String desc;
+  final String author;
+  final String description;
 
-  ProductModel({
+  BookModel({
     required this.id,
     required this.price,
-    required this.name,
+    required this.rate,
+    required this.title,
     required this.imageUrl,
-    required this.desc,
+    required this.author,
+    required this.description,
   });
-  factory ProductModel.fromJson(Map<String, dynamic> data) {
-    return ProductModel(
+
+  factory BookModel.fromJson(Map<String, dynamic> data) {
+    return BookModel(
       id: data['id'],
       price: data['price'],
-      name: data['name'],
+      title: data['title'],
       imageUrl: data['imageUrl'],
-      desc: data['description'],
+      description: data['description'],
+      rate: data['rate'],
+      author: data['author'],
     );
   }
 }
 
 class ProductResponse {
-  final List<ProductModel> response;
+  final List<BookModel> response;
 
   ProductResponse({required this.response});
-  factory ProductResponse.fromJson(Map<String, dynamic> data) {
+  factory ProductResponse.fromJson(List<dynamic> data) {
     return ProductResponse(
-      response: (data['response'] as List)
-          .map((item) => ProductModel.fromJson(item))
-          .toList(),
+      response: data.map((item) => BookModel.fromJson(item)).toList(),
     );
   }
 }

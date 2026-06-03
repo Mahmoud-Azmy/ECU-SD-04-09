@@ -43,7 +43,7 @@ class DioService {
     }
   }
 
-  Future<List<ProductModel>?> getProducts() async {
+  Future<List<BookModel>?> getProducts() async {
     try {
       final result = await _dio.get(Consts.getProductsEndPoint);
       if (result.statusCode == 200) {
