@@ -11,7 +11,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          'Weather App',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
       ),
       body: Consumer(
@@ -24,8 +27,8 @@ class HomeScreen extends StatelessWidget {
             return GridView.builder(
               itemCount: controller.productsList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: .7,
+                crossAxisCount: 1,
+                childAspectRatio: 5,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
               ),

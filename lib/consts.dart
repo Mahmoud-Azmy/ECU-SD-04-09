@@ -4,7 +4,7 @@ class Consts {
   static const registerEndPoint =
       'https://librarysystemflutterteam.runasp.net/api/Registration/SignUp';
   static const getProductsEndPoint =
-      'https://iats.runasp.net/api/Product/GetProducts';
+      'https://iats.runasp.net/api/Country/GetCountries';
 }
 
 

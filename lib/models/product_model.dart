@@ -1,36 +1,39 @@
-class ProductModel {
+class WeatherModel {
   final int id;
-  final int price;
   final String name;
-  final String imageUrl;
-  final String desc;
+  final String tempreature;
+  final String weatherImageUrl;
+  final String countryImageUrl;
+  final String weatherCondition;
 
-  ProductModel({
+  WeatherModel({
     required this.id,
-    required this.price,
     required this.name,
-    required this.imageUrl,
-    required this.desc,
+    required this.tempreature,
+    required this.weatherImageUrl,
+    required this.countryImageUrl,
+    required this.weatherCondition,
   });
-  factory ProductModel.fromJson(Map<String, dynamic> data) {
-    return ProductModel(
+  factory WeatherModel.fromJson(Map<String, dynamic> data) {
+    return WeatherModel(
       id: data['id'],
-      price: data['price'],
+      tempreature: data['tempreature'],
       name: data['name'],
-      imageUrl: data['imageUrl'],
-      desc: data['description'],
+      weatherImageUrl: data['weatherImageUrl'],
+      weatherCondition: data['weatherCondition'],
+      countryImageUrl: data['countryImageUrl'],
     );
   }
 }
 
 class ProductResponse {
-  final List<ProductModel> response;
+  final List<WeatherModel> response;
 
   ProductResponse({required this.response});
   factory ProductResponse.fromJson(Map<String, dynamic> data) {
     return ProductResponse(
-      response: (data['response'] as List)
-          .map((item) => ProductModel.fromJson(item))
+      response: (data['country'] as List)
+          .map((item) => WeatherModel.fromJson(item))
           .toList(),
     );
   }

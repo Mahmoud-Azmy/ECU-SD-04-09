@@ -3,31 +3,26 @@ import 'package:shopping_app/models/product_model.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.product});
-  final ProductModel product;
+  final WeatherModel product;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Product Details',
+          product.name,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(product.imageUrl, height: 400),
+            Image.network(product.weatherImageUrl, height: 200, width: 200),
             SizedBox(height: 16),
             Text(product.name),
-            Text(
-              product.price.toString(),
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(product.desc),
+            Text('Temp:  ${product.tempreature}°C'),
+            Text(product.weatherCondition),
           ],
         ),
       ),
