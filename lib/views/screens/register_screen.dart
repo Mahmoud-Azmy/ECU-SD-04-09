@@ -35,15 +35,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               key: formKey,
               child: Column(
                 children: [
-                  CircleAvatar(
-                    radius: 80,
-                    child: Icon(Icons.shopping_cart, size: 70),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'Shopping',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
                   SizedBox(height: 16),
                   CustomTextFormField(
                     hText: 'Name',
