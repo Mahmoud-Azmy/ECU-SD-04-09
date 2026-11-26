@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/Controllers/app_provider.dart';
 import 'package:shopping_app/Models/user_model.dart';
-import 'package:shopping_app/Views/Widgets/custom_text_form_field.dart';
+import 'package:shopping_app/controllers/app_provider.dart';
+
 import 'package:shopping_app/views/screens/home_screen.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
+import 'package:shopping_app/views/widgets/custom_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

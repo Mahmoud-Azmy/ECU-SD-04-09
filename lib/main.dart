@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/Controllers/app_provider.dart';
+
+import 'package:shopping_app/controllers/app_provider.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 
 void main() {
