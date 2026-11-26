@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/Controllers/app_provider.dart';
-import 'package:shopping_app/models/auth_request.dart';
+import 'package:shopping_app/models/user_model.dart';
 import 'package:shopping_app/views/screens/home_screen.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     final result = await context.read<AppProvider>().login(
-                      AuthRequest(
+                      UserModel(
                         email: emailController.text,
                         password: passController.text,
                       ),

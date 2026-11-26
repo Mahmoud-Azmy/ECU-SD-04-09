@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/models/auth_request.dart';
+import 'package:shopping_app/models/user_model.dart';
 import 'package:shopping_app/models/product_model.dart';
 import 'package:shopping_app/services/dio_service.dart';
 
@@ -9,7 +9,7 @@ class AppProvider extends ChangeNotifier {
   String? msg;
   List<ProductModel> pList = [];
 
-  Future<bool> login(AuthRequest x) async {
+  Future<bool> login(UserModel x) async {
     isLoading = true;
     msg = null;
     notifyListeners();
@@ -20,7 +20,7 @@ class AppProvider extends ChangeNotifier {
     return result?.status ?? false;
   }
 
-  Future<bool> register(AuthRequest x) async {
+  Future<bool> register(UserModel x) async {
     isLoading = true;
     msg = null;
     notifyListeners();
