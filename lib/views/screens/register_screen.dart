@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/Views/Widgets/custom_text_feild.dart';
-import 'package:shopping_app/controllers/auth_provider.dart';
+import 'package:shopping_app/controllers/app_provider.dart';
 import 'package:shopping_app/models/auth_request.dart';
 import 'package:shopping_app/views/screens/login_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
@@ -109,6 +109,22 @@ class _LoginScreenState extends State<RegisterScreen> {
                 child: context.watch<ShoppingAppProvider>().isLoading
                     ? CircularProgressIndicator()
                     : Text("Sign Up"),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already have an account?"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      );
+                    },
+                    child: Text("Login"),
+                  ),
+                ],
               ),
             ],
           ),

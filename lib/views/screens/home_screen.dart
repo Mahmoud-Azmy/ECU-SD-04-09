@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/auth_provider.dart';
+import 'package:shopping_app/controllers/app_provider.dart';
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
               itemCount: controller.pList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                childAspectRatio: 0.8,
               ),
               itemBuilder: (context, index) {
                 return InkWell(
