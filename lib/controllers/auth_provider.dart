@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/auth_request.dart';
 import 'package:shopping_app/models/product_model.dart';
-import 'package:shopping_app/models/weather_model.dart';
 import 'package:shopping_app/services/dio_service.dart';
 
 class ShoppingAppProvider extends ChangeNotifier {
@@ -9,8 +8,6 @@ class ShoppingAppProvider extends ChangeNotifier {
   bool isLoading = false;
   String? msg;
   List<ProductModel> pList = [];
-
-  List<WeatherModel> wList = [];
 
   Future<bool> login(AuthRequest x) async {
     isLoading = true;
@@ -40,19 +37,6 @@ class ShoppingAppProvider extends ChangeNotifier {
     notifyListeners();
     try {
       pList = await _dioService.getProducts() ?? [];
-    } catch (e) {
-      msg = e.toString();
-    }
-    isLoading = false;
-    notifyListeners();
-  }
-
-  Future<void> getWeather() async {
-    isLoading = true;
-    msg = null;
-    notifyListeners();
-    try {
-      wList = await _dioService.getWeather() ?? [];
     } catch (e) {
       msg = e.toString();
     }

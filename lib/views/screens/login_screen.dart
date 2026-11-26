@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           backgroundColor: Colors.green,
                         ),
                       );
-                      context.read<ShoppingAppProvider>().getWeather();
+                      context.read<ShoppingAppProvider>().get();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),

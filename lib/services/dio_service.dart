@@ -3,7 +3,7 @@ import 'package:shopping_app/constants.dart';
 import 'package:shopping_app/models/auth_request.dart';
 import 'package:shopping_app/models/auth_response.dart';
 import 'package:shopping_app/models/product_model.dart';
-import 'package:shopping_app/models/weather_model.dart';
+
 
 class DioService {
   final _dio = Dio();
@@ -58,16 +58,4 @@ class DioService {
     }
   }
 
-  Future<List<WeatherModel>?> getWeather() async {
-    try {
-      final result = await _dio.get(Constants.getWeatherEndPoint);
-      if (result.statusCode == 200) {
-        return WeatherResponse.fj(result.data).wList;
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
 }
