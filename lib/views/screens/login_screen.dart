@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/Views/Widgets/custom_text_feild.dart';
 import 'package:shopping_app/controllers/auth_provider.dart';
 import 'package:shopping_app/models/auth_request.dart';
-import 'package:shopping_app/views/screens/home_screen.dart';
-import 'package:shopping_app/views/screens/weather_screen.dart';
+import 'package:shopping_app/views/Screens/home_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
-import 'package:shopping_app/views/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -34,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: emailController,
                 hText: "email",
                 pIcon: Icon(Icons.email),
+                isEmail: true,
               ),
               SizedBox(height: 20),
               CustomTextField(
@@ -75,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       context.read<ShoppingAppProvider>().getWeather();
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => WeatherScreen()),
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

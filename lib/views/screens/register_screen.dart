@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/Views/Widgets/custom_text_feild.dart';
 import 'package:shopping_app/controllers/auth_provider.dart';
 import 'package:shopping_app/models/auth_request.dart';
 import 'package:shopping_app/views/screens/login_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
-import 'package:shopping_app/views/widgets/custom_text_field.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

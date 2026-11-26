@@ -1,71 +1,45 @@
 import 'package:flutter/material.dart';
 
-class CustomTextFeild extends StatelessWidget {
-  const CustomTextFeild({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
-    this.validator,
-    this.onTap,
+    this.hText,
+    this.pIcon,
+    this.sIcon,
+    this.isPass = false,
+    this.isEmail = false,
     this.controller,
-    required this.text,
-    required this.prefix,
-    this.suffix,
-    this.obscureText = false,
   });
-  final String? Function(String?)? validator;
-  final void Function()? onTap;
+  final String? hText;
+  final Widget? pIcon;
+  final Widget? sIcon;
+  final bool isPass;
+  final bool isEmail;
   final TextEditingController? controller;
-  final String text;
-  final Widget prefix;
-  final Widget? suffix;
-  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: obscureText,
-      validator: validator,
-      onTap: onTap,
       controller: controller,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return "this field is required";
+        } else if (isEmail && !value.contains("@")) {
+          return "enter a valid email";
+        }
+        return null;
+      },
+      obscureText: isPass,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(style: BorderStyle.none),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(style: BorderStyle.none),
-          borderRadius: BorderRadius.circular(15),
-        ),
-
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-
-          borderSide: BorderSide(
-            color: Colors.red,
-            width: 2,
-            style: BorderStyle.solid,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-
-          borderSide: BorderSide(
-            color: Colors.green,
-            width: 2,
-            style: BorderStyle.solid,
-          ),
-        ),
-        hintText: text,
-        prefixIcon: prefix,
-        suffixIcon: suffix,
-        suffixIconColor: Colors.blue,
-        prefixIconColor: Colors.blue,
-        hintStyle: TextStyle(
-          color: const Color.fromARGB(255, 50, 49, 49),
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        fillColor: const Color.fromARGB(255, 240, 239, 239),
+        hintText: hText,
+        prefixIcon: pIcon,
+        suffixIcon: sIcon,
+        fillColor: Colors.grey,
         filled: true,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
     );
   }
