@@ -3,7 +3,7 @@ import 'package:shopping_app/models/auth_request.dart';
 import 'package:shopping_app/models/product_model.dart';
 import 'package:shopping_app/services/dio_service.dart';
 
-class ShoppingAppProvider extends ChangeNotifier {
+class AppProvider extends ChangeNotifier {
   final _dioService = DioService();
   bool isLoading = false;
   String? msg;

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/Views/Widgets/custom_text_feild.dart';
-import 'package:shopping_app/controllers/app_provider.dart';
+import 'package:shopping_app/Controllers/app_provider.dart';
 import 'package:shopping_app/models/auth_request.dart';
-import 'package:shopping_app/views/Screens/home_screen.dart';
+import 'package:shopping_app/views/screens/home_screen.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 import 'package:shopping_app/views/widgets/custom_button.dart';
+import 'package:shopping_app/views/widgets/custom_text_feild.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,24 +56,20 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomButton(
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
-                    final result = await context
-                        .read<ShoppingAppProvider>()
-                        .login(
-                          AuthRequest(
-                            email: emailController.text,
-                            password: passController.text,
-                          ),
-                        );
+                    final result = await context.read<AppProvider>().login(
+                      AuthRequest(
+                        email: emailController.text,
+                        password: passController.text,
+                      ),
+                    );
                     if (result) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(
-                            context.read<ShoppingAppProvider>().msg ?? "",
-                          ),
+                          content: Text(context.read<AppProvider>().msg ?? ""),
                           backgroundColor: Colors.green,
                         ),
                       );
-                      context.read<ShoppingAppProvider>().get();
+                      context.read<AppProvider>().get();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -82,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            context.read<ShoppingAppProvider>().msg ??
+                            context.read<AppProvider>().msg ??
                                 "Something Went Wrong",
                           ),
                           backgroundColor: Colors.red,
@@ -91,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   }
                 },
-                child: context.watch<ShoppingAppProvider>().isLoading
+                child: context.watch<AppProvider>().isLoading
                     ? CircularProgressIndicator()
                     : Text("Login"),
               ),

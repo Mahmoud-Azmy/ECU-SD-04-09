@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/app_provider.dart';
+import 'package:shopping_app/Controllers/app_provider.dart';
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -11,9 +10,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Products Screen")),
+      appBar: AppBar(title: Text("Products"), centerTitle: true),
       body: Consumer(
-        builder: (context, ShoppingAppProvider controller, child) {
+        builder: (context, AppProvider controller, child) {
           if (controller.isLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (controller.msg != null) {
