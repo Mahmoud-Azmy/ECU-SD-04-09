@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Models/book_model.dart';
 
@@ -15,24 +16,37 @@ class DetailsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.network(bModel.imageUrl, height: 400),
-              SizedBox(height: 16),
-              Text(bModel.title),
-              Text(' Written by : ${bModel.author}'),
-              Text(
-                bModel.price.toString(),
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CachedNetworkImage(
+                  height: 400,
+                  width: 300,
+                  fit: BoxFit.cover,
+                  imageUrl: bModel.imageUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                      ),
+                  errorWidget: (context, url, error) =>
+                      Icon(Icons.error, size: 50),
                 ),
-              ),
-              Text(bModel.description),
-            ],
+                SizedBox(height: 16),
+                Text(bModel.title),
+                Text(' Written by : ${bModel.author}'),
+                Text(
+                  bModel.price.toString(),
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(bModel.description),
+              ],
+            ),
           ),
         ),
       ),

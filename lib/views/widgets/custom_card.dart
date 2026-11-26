@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/Models/book_model.dart';
 
@@ -11,7 +12,16 @@ class CustomCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Image.network(bModel.imageUrl, height: 80),
+            CachedNetworkImage(
+              
+              height: 120,
+              width: 80,
+              fit: BoxFit.cover,
+              imageUrl: bModel.imageUrl,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error, size: 50),
+            ),
             SizedBox(width: 20),
 
             Column(
