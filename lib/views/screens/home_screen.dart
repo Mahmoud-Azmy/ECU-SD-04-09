@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/get_products_provider.dart';
+import 'package:shopping_app/controllers/app_provider.dart';
+
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -18,14 +19,14 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Consumer(
-        builder: (context, GetProductsProvider controller, _) {
+        builder: (context, AppProvider controller, _) {
           if (controller.isLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (controller.errMessage != null) {
             return Center(child: Text(controller.errMessage!));
           } else {
             return GridView.builder(
-              itemCount: controller.productsList.length,
+              itemCount: controller.bList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
                 childAspectRatio: 5,
@@ -39,14 +40,12 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return DetailsScreen(
-                            product: controller.productsList[index],
-                          );
+                          return DetailsScreen(wModel: controller.bList[index]);
                         },
                       ),
                     );
                   },
-                  child: CustomCard(product: controller.productsList[index]),
+                  child: CustomCard(wModel: controller.bList[index]),
                 );
               },
             );

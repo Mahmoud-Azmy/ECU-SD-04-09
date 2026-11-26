@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping_app/models/product_model.dart';
+import 'package:shopping_app/models/weather_model.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key, required this.product});
-  final WeatherModel product;
+  const CustomCard({super.key, required this.wModel});
+  final WeatherModel wModel;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -11,16 +12,20 @@ class CustomCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Image.network(product.countryImageUrl, height: 50),
+            CachedNetworkImage(
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+              imageUrl: wModel.countryImageUrl,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error, size: 50),
+            ),
             SizedBox(width: 20),
             Column(
               children: [
-                Text(
-                  product.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text('${product.tempreature}°C'),
+                Text(wModel.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text('${wModel.tempreature}°C'),
               ],
             ),
           ],

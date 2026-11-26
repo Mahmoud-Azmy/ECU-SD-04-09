@@ -6,6 +6,3 @@ class Consts {
   static const getProductsEndPoint =
       'https://iats.runasp.net/api/Country/GetCountries';
 }
-
-
-//   https://elsewedyteam.runasp.net/api/Product/GetProducts
