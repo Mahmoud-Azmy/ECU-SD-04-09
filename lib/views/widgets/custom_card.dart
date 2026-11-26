@@ -13,7 +13,6 @@ class CustomCard extends StatelessWidget {
         child: Row(
           children: [
             CachedNetworkImage(
-              
               height: 120,
               width: 80,
               fit: BoxFit.cover,
@@ -33,7 +32,7 @@ class CustomCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  bModel.price.toString(),
+                  "\$ ${bModel.price}",
                   style: TextStyle(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
