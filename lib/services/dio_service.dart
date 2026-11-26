@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:shopping_app/consts.dart';
-import 'package:shopping_app/models/auth_model.dart';
+import 'package:shopping_app/constants.dart';
+import 'package:shopping_app/models/auth_request.dart';
+import 'package:shopping_app/models/auth_response.dart';
 import 'package:shopping_app/models/product_model.dart';
+import 'package:shopping_app/models/weather_model.dart';
 
 class DioService {
   final _dio = Dio();
@@ -9,8 +11,8 @@ class DioService {
   Future<AuthResponse?> loginUser(AuthRequest user) async {
     try {
       final result = await _dio.post(
-        Consts.loginEndPoint,
-        data: {"email": user.email, "password": user.password},
+        Constants.loginEndPoint,
+        data: {"Email": user.email, "Password": user.password},
       );
       if (result.statusCode == 200) {
         return AuthResponse.fromJson(result.data);
@@ -25,12 +27,12 @@ class DioService {
   Future<AuthResponse?> registerUser(AuthRequest user) async {
     try {
       final result = await _dio.post(
-        Consts.registerEndPoint,
+        Constants.registerEndPoint,
         data: {
-          "email": user.email,
-          "password": user.password,
-          "phoneNumber": user.phone,
-          "name": user.name,
+          "Email": user.email,
+          "Password": user.password,
+          "Phone": user.phone,
+          "Name": user.name,
         },
       );
       if (result.statusCode == 200) {
@@ -45,10 +47,22 @@ class DioService {
 
   Future<List<ProductModel>?> getProducts() async {
     try {
-      final result = await _dio.get(Consts.getProductsEndPoint);
+      final result = await _dio.get(Constants.getProductsEndPoint);
       if (result.statusCode == 200) {
-        final res = ProductResponse.fromJson(result.data);
-        return res.response;
+        return ProductResponse.fJ(result.data).pList;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<WeatherModel>?> getWeather() async {
+    try {
+      final result = await _dio.get(Constants.getWeatherEndPoint);
+      if (result.statusCode == 200) {
+        return WeatherResponse.fj(result.data).wList;
       } else {
         return null;
       }

@@ -1,6 +1,54 @@
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shopping_app/controllers/auth_provider.dart';
+// import 'package:shopping_app/views/screens/details_screen.dart';
+// import 'package:shopping_app/views/widgets/custom_card.dart';
+
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Home")),
+//       body: Consumer(
+//         builder: (context, ShoppingAppProvider controller, _) {
+//           if (controller.isLoading) {
+//             return CircularProgressIndicator();
+//           } else if (controller.msg != null) {
+//             return Text(controller.msg!);
+//           } else {
+//             return GridView.builder(
+//               itemCount: 10,
+//               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//                 crossAxisCount: 2,
+//                 childAspectRatio: .8,
+//               ),
+//               itemBuilder: (context, index) {
+//                 return InkWell(
+//                   onTap: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(
+//                         builder: (context) =>
+//                             DetailsScreen(pModel: controller.pList[index]),
+//                       ),
+//                     );
+//                   },
+//                   child: CustomCard(pModel: controller.pList[index]),
+//                 );
+//               },
+//             );
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/get_products_provider.dart';
+import 'package:shopping_app/controllers/auth_provider.dart';
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -10,24 +58,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Products', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text("Products Screen")),
       body: Consumer(
-        builder: (context, GetProductsProvider controller, _) {
+        builder: (context, ShoppingAppProvider controller, child) {
           if (controller.isLoading) {
             return Center(child: CircularProgressIndicator());
-          } else if (controller.errMessage != null) {
-            return Center(child: Text(controller.errMessage!));
+          } else if (controller.msg != null) {
+            return Center(child: Text(controller.msg!));
           } else {
             return GridView.builder(
-              itemCount: controller.productsList.length,
+              itemCount: controller.pList.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: .7,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
               ),
               itemBuilder: (context, index) {
                 return InkWell(
@@ -35,15 +77,12 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) {
-                          return DetailsScreen(
-                            product: controller.productsList[index],
-                          );
-                        },
+                        builder: (context) =>
+                            DetailsScreen(pModel: controller.pList[index]),
                       ),
                     );
                   },
-                  child: CustomCard(product: controller.productsList[index]),
+                  child: CustomCard(pModel: controller.pList[index]),
                 );
               },
             );

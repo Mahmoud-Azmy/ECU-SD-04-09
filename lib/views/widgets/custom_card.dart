@@ -1,27 +1,27 @@
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/product_model.dart';
 
 class CustomCard extends StatelessWidget {
-  const CustomCard({super.key, required this.product});
-  final ProductModel product;
+  const CustomCard({super.key, required this.pModel});
+  final ProductModel pModel;
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Image.network(product.imageUrl, height: 180),
-            Text(product.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-            Text(
-              product.price.toString(),
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            imageUrl: pModel.imageUrl,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+          SizedBox(height: 16),
+          Text(pModel.name),
+          SizedBox(height: 16),
+          Text(pModel.price.toString()),
+        ],
       ),
     );
   }

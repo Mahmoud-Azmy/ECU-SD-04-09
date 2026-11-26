@@ -1,35 +1,69 @@
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:flutter/material.dart';
+// import 'package:shopping_app/models/product_model.dart';
+
+// class DetailsScreen extends StatelessWidget {
+//   const DetailsScreen({super.key, required this.pModel});
+//   final ProductModel pModel;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("Product Details")),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             CachedNetworkImage(
+//               imageUrl: pModel.imageUrl,
+//               progressIndicatorBuilder: (context, url, downloadProgress) =>
+//                   CircularProgressIndicator(value: downloadProgress.progress),
+//               errorWidget: (context, url, error) =>
+//                   SizedBox(height: 150, child: Icon(Icons.error)),
+//             ),
+//             SizedBox(height: 20),
+//             Text(pModel.name),
+//             SizedBox(height: 10),
+//             Text(
+//               pModel.price.toString(),
+//               style: TextStyle(
+//                 color: Colors.green,
+//                 fontWeight: FontWeight.bold,
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//             Text(pModel.description),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/models/product_model.dart';
 
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key, required this.product});
-  final ProductModel product;
+  const DetailsScreen({super.key, required this.pModel});
+  final ProductModel pModel;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Product Details',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.network(product.imageUrl, height: 400),
-            SizedBox(height: 16),
-            Text(product.name),
-            Text(
-              product.price.toString(),
-              style: TextStyle(
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(product.desc),
-          ],
-        ),
+    return Card(
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            imageUrl: pModel.imageUrl,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),
+          SizedBox(height: 16),
+          Text(pModel.name),
+          SizedBox(height: 16),
+          Text(pModel.price.toString()),
+          SizedBox(height: 16),
+          Text(pModel.description),
+        ],
       ),
     );
   }

@@ -1,25 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/models/auth_model.dart';
+import 'package:shopping_app/models/auth_request.dart';
+import 'package:shopping_app/models/product_model.dart';
+import 'package:shopping_app/models/weather_model.dart';
 import 'package:shopping_app/services/dio_service.dart';
 
-class AuthProvider extends ChangeNotifier {
-  final DioService _dioService = DioService();
+class ShoppingAppProvider extends ChangeNotifier {
+  final _dioService = DioService();
   bool isLoading = false;
-  Future<bool> login(AuthRequest user) async {
+  String? msg;
+  List<ProductModel> pList = [];
+
+  List<WeatherModel> wList = [];
+
+  Future<bool> login(AuthRequest x) async {
     isLoading = true;
+    msg = null;
     notifyListeners();
-    final result = await _dioService.loginUser(user);
+    final result = await _dioService.loginUser(x);
     isLoading = false;
+    msg = result?.message;
     notifyListeners();
     return result?.status ?? false;
   }
 
-  Future<bool> register(AuthRequest user) async {
+  Future<bool> register(AuthRequest x) async {
     isLoading = true;
+    msg = null;
     notifyListeners();
-    final result = await _dioService.registerUser(user);
+    final result = await _dioService.registerUser(x);
     isLoading = false;
+    msg = result?.message;
     notifyListeners();
     return result?.status ?? false;
+  }
+
+  Future<void> get() async {
+    isLoading = true;
+    msg = null;
+    notifyListeners();
+    try {
+      pList = await _dioService.getProducts() ?? [];
+    } catch (e) {
+      msg = e.toString();
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> getWeather() async {
+    isLoading = true;
+    msg = null;
+    notifyListeners();
+    try {
+      wList = await _dioService.getWeather() ?? [];
+    } catch (e) {
+      msg = e.toString();
+    }
+    isLoading = false;
+    notifyListeners();
   }
 }

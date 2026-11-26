@@ -3,35 +3,37 @@ class ProductModel {
   final int price;
   final String name;
   final String imageUrl;
-  final String desc;
+  final String description;
 
   ProductModel({
     required this.id,
     required this.price,
     required this.name,
     required this.imageUrl,
-    required this.desc,
+    required this.description,
   });
-  factory ProductModel.fromJson(Map<String, dynamic> data) {
+
+  factory ProductModel.fJ(Map<String, dynamic> json) {
     return ProductModel(
-      id: data['id'],
-      price: data['price'],
-      name: data['name'],
-      imageUrl: data['imageUrl'],
-      desc: data['description'],
+      id: json["id"],
+      price: json["price"],
+      name: json["name"],
+      imageUrl: json["imageUrl"],
+      description: json["description"],
     );
   }
 }
 
 class ProductResponse {
-  final List<ProductModel> response;
+  final List<ProductModel> pList;
 
-  ProductResponse({required this.response});
-  factory ProductResponse.fromJson(Map<String, dynamic> data) {
+  ProductResponse({required this.pList});
+
+  factory ProductResponse.fJ(Map<String, dynamic> data) {
     return ProductResponse(
-      response: (data['response'] as List)
-          .map((item) => ProductModel.fromJson(item))
-          .toList(),
+      pList: (data["response"] as List).map((item) {
+        return ProductModel.fJ(item);
+      }).toList(),
     );
   }
 }

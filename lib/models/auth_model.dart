@@ -1,23 +1,24 @@
-class AuthRequest {
-  final String email;
-  final String password;
+class AuthModelRequest {
   final String? name;
   final String? phone;
+  final String email;
+  final String password;
 
-  AuthRequest({
-    required this.email,
-    required this.password,
+  AuthModelRequest({
     this.name,
     this.phone,
+    required this.email,
+    required this.password,
   });
 }
 
-class AuthResponse {
-  final bool status;
+class AuthModelResponse {
   final String message;
+  final bool status;
 
-  AuthResponse({required this.status, required this.message});
-  factory AuthResponse.fromJson(Map<String, dynamic> data) {
-    return AuthResponse(status: data['statusCode'], message: data['message']);
+  AuthModelResponse({required this.message, required this.status});
+
+  factory AuthModelResponse.fromJson(Map<String, dynamic> data) {
+    return AuthModelResponse(message: data['message'], status: data['status']);
   }
 }
