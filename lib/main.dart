@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/auth_provider.dart';
-import 'package:shopping_app/controllers/get_products_provider.dart';
+import 'package:shopping_app/Controllers/app_provider.dart';
 import 'package:shopping_app/views/screens/register_screen.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(create: (context) => GetProductsProvider()),
-      ],
-      child: MyApp(),
-    ),
+    ChangeNotifierProvider(create: (context) => AppProvider(), child: MyApp()),
   );
 }
 
@@ -24,10 +17,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
       home: RegisterScreen(),
     );
   }

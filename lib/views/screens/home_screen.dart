@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/controllers/get_products_provider.dart';
+import 'package:shopping_app/controllers/app_provider.dart';
 import 'package:shopping_app/views/screens/details_screen.dart';
 import 'package:shopping_app/views/widgets/custom_card.dart';
 
@@ -15,14 +15,14 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Consumer(
-        builder: (context, GetProductsProvider controller, _) {
+        builder: (context, AppProvider controller, _) {
           if (controller.isLoading) {
             return Center(child: CircularProgressIndicator());
           } else if (controller.errMessage != null) {
             return Center(child: Text(controller.errMessage!));
           } else {
             return ListView.builder(
-              itemCount: controller.productsList.length,
+              itemCount: controller.bList.length,
 
               itemBuilder: (context, index) {
                 return InkWell(
@@ -31,14 +31,12 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return DetailsScreen(
-                            product: controller.productsList[index],
-                          );
+                          return DetailsScreen(bModel: controller.bList[index]);
                         },
                       ),
                     );
                   },
-                  child: CustomCard(product: controller.productsList[index]),
+                  child: CustomCard(bModel: controller.bList[index]),
                 );
               },
             );

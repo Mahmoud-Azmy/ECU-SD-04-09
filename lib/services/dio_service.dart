@@ -1,19 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:shopping_app/consts.dart';
-import 'package:shopping_app/models/auth_model.dart';
-import 'package:shopping_app/models/product_model.dart';
+import 'package:shopping_app/Models/book_model.dart';
+import 'package:shopping_app/Models/user_model.dart';
+import 'package:shopping_app/Models/user_response.dart';
+import 'package:shopping_app/constants.dart';
 
 class DioService {
   final _dio = Dio();
 
-  Future<AuthResponse?> loginUser(AuthRequest user) async {
+  Future<UserResponse?> loginUser(UserModel user) async {
     try {
       final result = await _dio.post(
-        Consts.loginEndPoint,
+        Constants.loginEndPoint,
         data: {"email": user.email, "password": user.password},
       );
       if (result.statusCode == 200) {
-        return AuthResponse.fromJson(result.data);
+        return UserResponse.fromJson(result.data);
       } else {
         return null;
       }
@@ -22,10 +23,10 @@ class DioService {
     }
   }
 
-  Future<AuthResponse?> registerUser(AuthRequest user) async {
+  Future<UserResponse?> registerUser(UserModel user) async {
     try {
       final result = await _dio.post(
-        Consts.registerEndPoint,
+        Constants.registerEndPoint,
         data: {
           "email": user.email,
           "password": user.password,
@@ -34,7 +35,7 @@ class DioService {
         },
       );
       if (result.statusCode == 200) {
-        return AuthResponse.fromJson(result.data);
+        return UserResponse.fromJson(result.data);
       } else {
         return null;
       }
@@ -43,9 +44,9 @@ class DioService {
     }
   }
 
-  Future<List<BookModel>?> getProducts() async {
+  Future<List<BookModel>?> getBooks() async {
     try {
-      final result = await _dio.get(Consts.getProductsEndPoint);
+      final result = await _dio.get(Constants.getBooksEndPoint);
       if (result.statusCode == 200) {
         final res = ProductResponse.fromJson(result.data);
         return res.response;
