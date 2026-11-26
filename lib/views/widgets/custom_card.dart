@@ -13,9 +13,9 @@ class CustomCard extends StatelessWidget {
         child: Row(
           children: [
             CachedNetworkImage(
-              height: 100,
+              height: 80,
               width: 100,
-              fit: BoxFit.cover,
+              fit: BoxFit.fitHeight,
               imageUrl: wModel.countryImageUrl,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   CircularProgressIndicator(value: downloadProgress.progress),
@@ -23,6 +23,8 @@ class CustomCard extends StatelessWidget {
             ),
             SizedBox(width: 20),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(wModel.name, maxLines: 1, overflow: TextOverflow.ellipsis),
                 Text('${wModel.tempreature}°C'),

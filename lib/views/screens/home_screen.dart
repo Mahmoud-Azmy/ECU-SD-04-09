@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: Text(
           'Weather App',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -25,14 +26,9 @@ class HomeScreen extends StatelessWidget {
           } else if (controller.errMessage != null) {
             return Center(child: Text(controller.errMessage!));
           } else {
-            return GridView.builder(
+            return ListView.builder(
               itemCount: controller.bList.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 5,
-                mainAxisSpacing: 12,
-                crossAxisSpacing: 12,
-              ),
+
               itemBuilder: (context, index) {
                 return InkWell(
                   onTap: () {

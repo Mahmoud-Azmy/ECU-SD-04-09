@@ -9,27 +9,36 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: Text(wModel.name, style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CachedNetworkImage(
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-              imageUrl: wModel.countryImageUrl,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(value: downloadProgress.progress),
-              errorWidget: (context, url, error) => Icon(Icons.error, size: 50),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CachedNetworkImage(
+                  height: 200,
+                  width: 300,
+                  fit: BoxFit.fill,
+                  imageUrl: wModel.weatherImageUrl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                      ),
+                  errorWidget: (context, url, error) =>
+                      Icon(Icons.error, size: 50),
+                ),
+                SizedBox(height: 16),
+                Text(wModel.name),
+                Text('Temp:  ${wModel.tempreature}°C'),
+                Text(wModel.weatherCondition),
+              ],
             ),
-            SizedBox(height: 16),
-            Text(wModel.name),
-            Text('Temp:  ${wModel.tempreature}°C'),
-            Text(wModel.weatherCondition),
-          ],
+          ),
         ),
       ),
     );
